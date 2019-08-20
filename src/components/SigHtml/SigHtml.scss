@@ -1,0 +1,10 @@
+@import './styles/scss/import';
+
+.sigHtml-box {
+
+  textarea {
+    font-size: rem-calc(11);
+    line-height: normal;
+    padding: gu(0.5) gu(1);
+  }
+}

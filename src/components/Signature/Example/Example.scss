@@ -1,0 +1,12 @@
+@import '../../../styles/scss/import';
+
+.table-wrap {
+  background-color: $white;
+  padding: gu(1);
+
+  table {
+    line-height: initial;
+    -webkit-font-smoothing: auto;
+    -moz-osx-font-smoothing: auto;  
+  }
+}

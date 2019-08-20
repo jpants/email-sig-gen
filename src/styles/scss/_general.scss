@@ -1,0 +1,219 @@
+// body.admin-bar {
+// .all-content {
+//   @include mediaMin($bpAdmin){
+//     min-height: calc(100vh - #{$htAdmin} - #{$htHeader});
+//   }
+//   min-height: calc(100vh - #{$htAdminMobile} - #{$htHeader});
+// }
+
+// .flex-wrap {
+//   @include mediaMin($bpAdmin){
+//     min-height: calc(100vh - #{$htAdmin});
+//   }
+//   min-height: calc(100vh - #{$htAdminMobile});
+// }
+// }
+
+.flexy-spacer {
+	margin: auto;
+}
+
+.all-content {
+	position: relative;
+	z-index: 600;
+
+	// display: flex;
+	// flex-direction: column;
+	// min-height: calc(100vh - #{$htHeader});
+}
+
+/* ************************************* */
+/* Foundation Responsive Grid Alignments */
+/* ************************************* */
+.grid-x, .grid-y, .menu {
+	@include breakpoint(small) {
+		&.small-align-left {
+			@include flex-align($x: left);
+		}
+
+		&.small-align-center {
+			@include flex-align($x: center);
+		}
+
+		&.small-align-right {
+			@include flex-align($x: right);
+		}
+
+		&.small-align-justify {
+			@include flex-align($x: justify);
+		}
+
+		&.small-align-spaced {
+			@include flex-align($x: spaced);
+		}
+
+		&.small-align-top {
+			@include flex-align($y: top);
+		}
+
+		&.small-align-middle {
+			@include flex-align($y: middle);
+		}
+
+		&.small-align-bottom {
+			@include flex-align($y: bottom);
+		}
+
+		&.small-align-stretch {
+			@include flex-align($y: stretch);
+		}
+	}
+
+
+	@include breakpoint(medium) {
+		&.medium-align-left {
+			@include flex-align($x: left);
+		}
+
+		&.medium-align-center {
+			@include flex-align($x: center);
+		}
+
+		&.medium-align-right {
+			@include flex-align($x: right);
+		}
+
+		&.medium-align-justify {
+			@include flex-align($x: justify);
+		}
+
+		&.medium-align-spaced {
+			@include flex-align($x: spaced);
+		}
+
+		&.medium-align-top {
+			@include flex-align($y: top);
+		}
+
+		&.medium-align-middle {
+			@include flex-align($y: middle);
+		}
+
+		&.medium-align-bottom {
+			@include flex-align($y: bottom);
+		}
+
+		&.medium-align-stretch {
+			@include flex-align($y: stretch);
+		}
+	}
+
+
+	@include breakpoint(large) {
+		&.large-align-left {
+			@include flex-align($x: left);
+		}
+
+		&.large-align-center {
+			@include flex-align($x: center);
+		}
+
+		&.large-align-right {
+			@include flex-align($x: right);
+		}
+
+		&.large-align-justify {
+			@include flex-align($x: justify);
+		}
+
+		&.large-align-spaced {
+			@include flex-align($x: spaced);
+		}
+
+		&.large-align-top {
+			@include flex-align($y: top);
+		}
+
+		&.large-align-middle {
+			@include flex-align($y: middle);
+		}
+
+		&.large-align-bottom {
+			@include flex-align($y: bottom);
+		}
+
+		&.large-align-stretch {
+			@include flex-align($y: stretch);
+		}
+	}
+}
+
+.grid-padding-x {
+	margin-left: calc(-#{map-get($grid-padding-gutters, small)} / 2);
+	margin-right: calc(-#{map-get($grid-padding-gutters, small)} / 2);
+
+	// width: calc(100% + #{map-get($grid-padding-gutters, small)});
+
+	@include breakpoint(medium) {
+		margin-left: calc(-#{map-get($grid-padding-gutters, medium)} / 2);
+		margin-right: calc(-#{map-get($grid-padding-gutters, medium)} / 2);
+
+		// width: calc(100% + #{map-get($grid-padding-gutters, medium)});
+	}
+}
+
+.grid-container {
+	padding-right: gu(2);
+	padding-left: gu(2);
+
+	// max-width: $global-width;
+	// margin: 0 auto;
+
+	@include breakpoint(medium) {
+		padding-right: gu(6);
+		padding-left: gu(6);
+  }
+  
+  &.grid-y {
+    width: 100%
+  }
+}
+
+.interchange {
+	position: absolute;
+	top: 0;
+	height: 100%;
+	left: 0;
+	width: 100%;
+	object-fit: cover;
+}
+
+.int-cover {
+	position: absolute;
+	top: 0;
+	height: 100%;
+	left: 0;
+	width: 100%;
+	background-image: linear-gradient(90deg, rgb(0, 0, 0), transparent);
+	opacity: 0.74;
+
+	.inside-cover {
+		height: 100%;
+		background-image: linear-gradient(90deg, transparent, rgba(183, 183, 183, 0.28));
+	}
+}
+
+/* ************************************* */
+/* Block Styles */
+/* ************************************* */
+.block-section {
+	position: relative;
+}
+
+.block-container {
+	position: relative;
+}
+
+body {
+	color: $black;
+}

@@ -1,0 +1,411 @@
+// @import 'vars';
+
+// Color with opacity and fallback
+@mixin colorAlpha($color, $percent) {
+	color: lighten($color, 100 - $percent);
+	color: rgba($color, $percent / 100);
+}
+
+// Makes background color transparent. Inlcudes
+// fallback color for older browsers.
+@mixin bgAlpha($color, $percent) {
+	background-color: lighten($color, $percent / 200);
+	background-color: rgba($color, $percent / 100);
+}
+
+@function lightOrDark($color, $amount) {
+	@if unquote('#{$color} > 50') {
+		@return darken($color, $amount);
+	}
+	@else {
+		@return lighten($color, $amount);
+	}
+}
+
+// Changes the placeholder color of form inputs
+@mixin placeholderColor($color) {
+	&::-webkit-input-placeholder { // Chrome/Opera/Safari
+		color: $color;
+	}
+
+	&::-moz-placeholder { // Firefox 19+
+		color: $color;
+		opacity: 1;
+	}
+
+	&:-ms-input-placeholder { // IE 10+
+		color: $color;
+	}
+
+	&:-moz-placeholder { // Firefox 18-
+		color: $color;
+		opacity: 1;
+	}
+}
+
+// Changes the placeholder font size
+@mixin placeholderSize($size) {
+	&::-webkit-input-placeholder { // Chrome/Opera/Safari
+		font-size: $size;
+	}
+
+	&::-moz-placeholder { // Firefox 19+
+		font-size: $size;
+	}
+
+	&:-ms-input-placeholder { // IE 10+
+		font-size: $size;
+	}
+
+	&:-moz-placeholder { // Firefox 18-
+		font-size: $size;
+	}
+}
+
+// Transparent Background-Image (Tiled)
+@mixin bgAlphaTile($path, $opacity) {
+	&:after {
+		content: ' ';
+		display: block;
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		z-index: 25;
+		opacity: $opacity;
+		background-image: url('#{$path}');
+		background-repeat: repeat;
+	}
+}
+
+@mixin bgContain($bool) {
+	@if $bool == true {
+		-op-background-size: contain;
+		-moz-background-size: contain;
+		-webkit-background-size: contain;
+		background-size: contain;
+		background-repeat: no-repeat;
+	}
+	@else {
+		-op-background-size: cover;
+		-moz-background-size: cover;
+		-webkit-background-size: cover;
+		background-size: cover;
+	}
+}
+
+// Changes link color and generates pseudo-class state colors
+@mixin linkColor($color, $percent) {
+	color: $color;
+	line-height: inherit;
+	cursor: pointer;
+	text-decoration: none;
+
+	&:visited {
+		text-decoration: none;
+		color: $color;
+	}
+
+	&:hover, &:focus {
+		@if lightness($color) < 50% {
+			color: lighten($color, $percent);
+		}
+		@else {
+			color: darken($color, $percent);
+		}
+	}
+
+	&:active {
+		@if lightness($color) < 50% {
+			color: lighten($color, $percent + 10%);
+		}
+		@else {
+			color: darken($color, $percent + 10%);
+		}
+	}
+}
+
+// Changes link color and generates pseudo-class state colors
+@mixin link2Color($color1, $color2) {
+	color: $color1;
+	line-height: inherit;
+	cursor: pointer;
+	text-decoration: none;
+
+	&:visited {
+		text-decoration: none;
+		color: $color1;
+	}
+
+	&:hover, &:focus {
+		color: $color2;
+	}
+
+	&:active {
+		@if lightness($color2) < 50% {
+			color: lighten($color2, 10%);
+		}
+		@else {
+			color: darken($color2, 10%);
+		}
+	}
+}
+
+// Bottom left & right borders with fallback prefixes
+@mixin radiusBottom($radius) {
+	-webkit-border-bottom-left-radius: $radius;
+	-moz-border-bottom-right-radius: $radius;
+	-webkit-border-bottom-left-radius: $radius;
+	-moz-border-bottom-right-radius: $radius;
+	border-bottom-left-radius: $radius;
+	border-bottom-right-radius: $radius;
+}
+
+@mixin borderCircle($size, $color) {
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	border-radius: 50%;
+	border: $size solid $color;
+}
+
+@mixin borderRadius($size) {
+	-webkit-border-radius: $size;
+	-moz-border-radius: $size;
+	border-radius: $size;
+}
+
+@mixin borderRadiusCorner($topleft, $topright, $bottomleft, $bottomright) {
+	-moz-border-radius-topleft: $topleft;
+	-webkit-border-top-left-radius: $topleft;
+	border-top-left-radius: $topleft;
+	-moz-border-radius-topright: $topright;
+	-webkit-border-top-right-radius: $topright;
+	border-top-right-radius: $topright;
+	-moz-border-radius-bottomleft: $bottomleft;
+	-webkit-border-bottom-left-radius: $bottomleft;
+	border-bottom-left-radius: $bottomleft;
+	-moz-border-radius-bottomright: $bottomright;
+	-webkit-border-bottom-right-radius: $bottomright;
+	border-bottom-right-radius: $bottomright;
+}
+
+//  Box Shadow with prefixes
+@mixin boxShadow($shorthand) {
+	-webkit-box-shadow: $shorthand;
+	-moz-box-shadow: $shorthand;
+	box-shadow: $shorthand;
+}
+
+@mixin textRotate($deg) {
+	$ms: abs($deg) / 90;
+
+	-webkit-transform: rotate(#{$deg}deg);
+	-moz-transform: rotate(#{$deg}deg);
+	-ms-transform: rotate(#{$deg}deg);
+	-o-transform: rotate(#{$deg}deg);
+	filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=#{$ms});
+}
+
+// Gaudy Styles
+@mixin textShadow($color, $shadow, $x, $y, $blur) {
+	color: $color;
+	text-shadow: $shadow $x $y $blur;
+}
+
+// Doesn't quite work correctly
+@mixin multiTextShadow($shadows) {
+	@each $shadow in $shadows {
+		text-shadow: nth($shadow, 1) nth($shadow, 2) nth($shadow, 3) nth($shadow, 4);
+	}
+}
+
+@mixin bgStripes($color1, $color2, $size) {
+	background: repeating-linear-gradient(45deg, $color1, $color1 $size, $color2 $size, $color2 ($size * 2));
+}
+
+@mixin hoverZoom($dur, $size) {
+	transition: all $dur ease-in-out;
+
+	&:hover {
+		transform: scale($size);
+	}
+}
+
+@mixin zoomFrame($dur, $size) {
+	overflow: hidden;
+
+	img {
+		width: 100%;
+
+		@include hoverZoom($dur, $size);
+	}
+}
+
+@mixin faContent($code) {
+	font-family: 'FontAwesome';
+	content: '#{$code}';
+}
+
+@mixin mediaMin($min) {
+	@media only screen and (min-width: $min) {
+		@content;
+	}
+}
+
+@mixin mediaMax($max) {
+	@media only screen and (max-width: $max - 1) {
+		@content;
+	}
+}
+
+// *****************************************************************
+
+// Stylesheet: Mixins & Constants Stylesheet
+
+// This is where you can take advantage of Sass' great features:
+// Mixins & Constants.
+
+// ******************************************************************
+
+// *********************
+// TOOLS
+// *********************
+
+// http://www.zeldman.com/2012/03/01/replacing-the-9999px-hack-new-image-replacement/
+// .image-replacement {
+// 	text-indent: 100%;
+// 	white-space: nowrap;
+// 	overflow: hidden;
+// }
+
+// *********************
+// COLORS
+// *********************
+
+// *********************
+// TYPOGRAPHY
+// *********************
+// 	@font-face {
+//     	font-family: 'Font Name';
+//     	src: url('assets/fonts/font-name.eot');
+//     	src: url('assets/fonts/font-name.eot?#iefix') format('embedded-opentype'),
+//              url('assets/fonts/font-name.woff') format('woff'),
+//              url('assets/fonts/font-name.ttf') format('truetype'),
+//              url('assets/fonts/font-name.svg#font-name') format('svg');
+//     	font-weight: normal;
+//     	font-style: normal;
+// 	}
+
+// Use the best ampersand - http://simplebits.com/notebook/2008/08/14/ampersands-2/
+// span.amp {
+// 	font-family: Baskerville,'Goudy Old Style',Palatino,'Book Antiqua',serif !important;
+// 	font-style: italic;
+// }
+
+// *********************
+// CSS3 GRADIENTS.
+// *********************
+
+@mixin css-gradient($from: #dfdfdf, $to: #f8f8f8) {
+	background-color: $to;
+	background-image: -webkit-gradient(linear, left top, left bottom, from($from), to($to));
+	background-image: -webkit-linear-gradient(top, $from, $to);
+	background-image: -moz-linear-gradient(top, $from, $to);
+	background-image: -o-linear-gradient(top, $from, $to);
+	background-image: linear-gradient(to bottom, $from, $to);
+}
+
+@function gu($multiplier) {
+	@return $global-padding * $multiplier;
+}
+
+@mixin fontSize($large, $medium: 0.9, $small: 0.8) {
+	$large: to-number($large);
+
+	@if unitless($large) {
+		$large: to-length($large, 'rem');
+	}
+
+	font-size: $large * $small;
+
+	@include mediaMin($bpSmall) {
+		font-size: $large * $medium;
+	}
+
+
+	@include mediaMin($bpMedium) {
+		font-size: $large;
+	}
+}
+
+// ----
+// Sass (v3.4.13)
+// Compass (v1.0.3)
+// ----
+
+////
+/// String to number converter
+/// @author Hugo Giraudel
+/// @access private
+////
+
+///
+/// Casts a string into a number
+///
+/// @param {String | Number} $value - Value to be parsed
+///
+/// @return {Number}
+///
+@function to-number($value) {
+	@if type-of($value) == 'number' {
+		@return $value;
+	}
+	@else if type-of($value) != 'string' {
+		$_: log('Value for `to-number` should be a number or a string.');
+	}
+
+	$result: 0;
+	$digits: 0;
+	$minus: str-slice($value, 1, 1) == '-';
+	$numbers: ('0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9);
+
+	@for $i from if($minus, 2, 1) through str-length($value) {
+		$character: str-slice($value, $i, $i);
+
+		@if not (index(map-keys($numbers), $character) or $character == '.') {
+			@return to-length(if($minus, -$result, $result), str-slice($value, $i));
+		}
+
+		@if $character == '.' {
+			$digits: 1;
+		}
+		@else if $digits == 0 {
+			$result: $result * 10 + map-get($numbers, $character);
+		}
+		@else {
+			$digits: $digits * 10;
+			$result: $result + map-get($numbers, $character) / $digits;
+		}
+	}
+
+	@return if($minus, -$result, $result);
+}
+
+///
+/// Add `$unit` to `$value`
+///
+/// @param {Number} $value - Value to add unit to
+/// @param {String} $unit - String representation of the unit
+///
+/// @return {Number} - `$value` expressed in `$unit`
+///
+@function to-length($value, $unit) {
+	$units: ('px': 1px, 'cm': 1cm, 'mm': 1mm, '%': 1%, 'ch': 1ch, 'pc': 1pc, 'in': 1in, 'em': 1em, 'rem': 1rem, 'pt': 1pt, 'ex': 1ex, 'vw': 1vw, 'vh': 1vh, 'vmin': 1vmin, 'vmax': 1vmax);
+
+	@if not index(map-keys($units), $unit) {
+		$_: log('Invalid unit `#{$unit}`.');
+	}
+
+	@return $value * map-get($units, $unit);
+}
